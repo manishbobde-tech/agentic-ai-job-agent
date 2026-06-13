@@ -1,132 +1,103 @@
-# Agentic AI Job Search Agent
+# Agentic AI Job Search Platform
 
-An intelligent agent that scans job listings for Agentic AI Engineer positions, extracts key requirements, and provides clear analysis.
+A full-stack web application for finding Agentic AI Engineer jobs with resume matching and tailoring.
 
 ## Features
 
-- 🔍 **Multi-source job search** (Google, Indeed, LinkedIn)
-- 📊 **Structured JD extraction** - Skills, requirements, responsibilities
-- 🎯 **Advanced filtering** - By location, salary, keywords, remote
-- 💾 **Export to multiple formats** - CSV, Excel, JSON, Markdown
-- 📧 **Email notifications** - Get notified of new jobs
-- 📈 **Statistics dashboard** - Skills demand, source breakdown
-- 🔄 **Full JD scraping** - Get complete job descriptions
-- 🤖 **AI-powered analysis** (optional with OpenAI API key)
+- **Job Search** - Search across LinkedIn, Indeed, and the web
+- **Job Details** - View full job descriptions with one click
+- **Easy Apply** - Direct apply buttons for each job
+- **Resume Matcher** - Analyze how well your resume matches a job
+- **Resume Tailor** - AI-powered resume tailoring for ATS optimization
+- **Dark Mode** - Beautiful dark UI
+
+## Tech Stack
+
+**Frontend:**
+- React + Vite
+- React Router
+- Lucide Icons
+
+**Backend:**
+- FastAPI (Python)
+- BeautifulSoup (Web Scraping)
+- OpenAI (Resume Analysis)
 
 ## Quick Start
 
 ```bash
-# Install dependencies
+# Install backend dependencies
+cd backend
 pip install -r requirements.txt
 
-# Run interactive mode
-python run.py
+# Install frontend dependencies
+cd ../frontend
+npm install
 
-# Or run simple search
-python main.py
+# Start both servers
+cd ..
+./start.sh
 ```
 
-## Interactive CLI
+Or start separately:
 
-Run `python run.py` for the full interactive experience:
+```bash
+# Terminal 1 - Backend
+cd backend && python3 app.py
 
-```
-╔═══════════════════════════════════════════╗
-║  Main Menu                                ║
-╠═══════════════════════════════════════════╣
-║  1. 🔍 Search for jobs                    ║
-║  2. 🎯 Filter jobs                        ║
-║  3. 📊 View current results               ║
-║  4. 💾 Export to CSV/Excel/JSON            ║
-║  5. 📧 Set up email notifications         ║
-║  6. ⚙️  Configure settings                 ║
-║  7. 🔄 Scrape full job descriptions       ║
-║  8. 📈 View statistics                    ║
-║  0. 🚪 Exit                               ║
-╚═══════════════════════════════════════════╝
+# Terminal 2 - Frontend
+cd frontend && npm run dev
 ```
 
-## Filtering Options
+## Access
 
-- **Location**: Filter by specific cities or "Remote"
-- **Salary**: Set minimum/maximum salary range
-- **Keywords**: Include/exclude specific skills
-- **Experience**: Filter by years of experience
+- **Frontend:** http://localhost:5173
+- **Backend API:** http://localhost:8000
+- **API Docs:** http://localhost:8000/docs
 
-## Export Formats
+## API Endpoints
 
-| Format | File | Best For |
-|--------|------|----------|
-| CSV | `jobs.csv` | Spreadsheet analysis |
-| Excel | `jobs.xlsx` | Advanced formatting |
-| JSON | `jobs.json` | Data processing |
-| Markdown | `jobs.md` | Documentation |
-
-## Email Notifications
-
-1. Set up Gmail App Password (not regular password)
-2. Run `python run.py` → Select option 5
-3. Enter your credentials
-4. Get beautiful HTML email digests
-
-## Configuration
-
-Edit `job_scraper/config.py`:
-
-```python
-@dataclass
-class Config:
-    target_role: str = "Agentic AI Engineer"
-    location: str = "Remote"
-    num_results: int = 10
-    model: str = "gpt-4o-mini"  # For AI analysis
-```
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/search` | Search for jobs |
+| POST | `/api/scrape/{index}` | Get full job description |
+| POST | `/api/match` | Analyze resume match |
+| POST | `/api/tailor` | Tailor resume for job |
+| GET | `/api/jobs/cache` | Get cached jobs |
 
 ## Project Structure
 
 ```
 .
-├── run.py                  # Interactive CLI (recommended)
-├── main.py                 # Simple search
-├── run_enhanced.py         # With full JD scraping
-├── test_features.py        # Feature tests
-├── requirements.txt        # Dependencies
-├── .env.example           # API keys template
-└── job_scraper/
-    ├── __init__.py
-    ├── agent.py            # Main agent logic
-    ├── config.py           # Configuration
-    ├── search.py           # Job search
-    ├── parser.py           # JD parsing
-    ├── scraper.py          # Full JD scraper
-    ├── filters.py          # Advanced filtering
-    ├── exporter.py         # CSV/Excel/JSON export
-    ├── notifications.py    # Email notifications
-    └── interactive.py      # Interactive CLI
+├── backend/
+│   ├── app.py              # FastAPI server
+│   ├── search.py           # Job search
+│   ├── scraper.py          # Job description scraper
+│   ├── resume_matcher.py   # AI resume analysis
+│   └── requirements.txt
+├── frontend/
+│   ├── src/
+│   │   ├── pages/
+│   │   │   ├── Dashboard.jsx   # Job search page
+│   │   │   ├── JobView.jsx     # Job detail page
+│   │   │   └── ResumePage.jsx  # Resume matcher
+│   │   ├── App.jsx
+│   │   └── index.css
+│   └── package.json
+└── start.sh
 ```
 
-## Without API Key
+## Usage
 
-The agent works without an API key for:
-- ✅ Job search across platforms
-- ✅ Basic skill extraction
-- ✅ Filtering and export
-- ✅ Email notifications
+1. **Search Jobs** - Enter a query and click Search
+2. **View Details** - Click any job card to see full details
+3. **Apply** - Click "Apply Now" to go to the job posting
+4. **Match Resume** - Click "Match My Resume" to analyze your fit
+5. **Tailor Resume** - Click "Tailor My Resume" to optimize for ATS
 
-With OpenAI API key, you get:
-- ✨ AI-generated job summaries
-- ✨ Key requirements extraction
-- ✨ Skills matching insights
+## Resume Tips
 
-## Job Sources
-
-- **Google Jobs**: Aggregated from multiple platforms
-- **Indeed**: Direct job listings
-- **LinkedIn**: Professional network listings
-
-## Tips
-
-1. **Use App Password for Gmail** - Regular passwords won't work
-2. **Run regularly** - Check for new jobs daily
-3. **Export results** - Keep track of applications
-4. **Scrape full descriptions** - Get complete JD details
+- Include keywords from the job description
+- Quantify achievements (numbers, percentages)
+- Use action verbs (built, led, improved)
+- Keep it ATS-friendly (simple formatting)
