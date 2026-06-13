@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+
+# Environment
+.env
+
+# Output files
+job_results.json
+enhanced_job_results.json
+test_jobs.csv
+test_jobs.json
+test_jobs.md
+seen_jobs.json
+email_config.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
