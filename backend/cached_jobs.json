@@ -1,57 +1,167 @@
 [
   {
-    "title": "Software Engineer (New Grads)",
-    "url": "https://www.linkedin.com/jobs/view/software-engineer-new-grads-at-giga-4374834620?position=1&pageNum=0&refId=MhI%2BTMQLhX6xlf%2B8CSq6Nw%3D%3D&trackingId=0ixC5mGq1lyOhAEHBiZBmw%3D%3D",
-    "company": "Giga",
-    "location": "New York, NY",
-    "source": "LinkedIn",
-    "snippet": "",
-    "skills": [],
+    "title": "Office Assistant",
+    "company": "Coalition Technologies ",
+    "location": "Remote",
+    "url": "https://remotive.com/remote-jobs/marketing/office-assistant-1680495",
+    "snippet": "WHY YOU SHOULD APPLY: Coalition Technologies is devoted to delivering clients the highest quality work while providing our team a fun, thriving, and innovative environment. Along with the opportunity for tremendous career growth and rapid advancement, CT offers: The most competitive profit-sharing bonus plan in the industry, paying up to 50% of company profits to full-time employees each month! A ",
+    "salary": "$31,2k- $52k",
+    "source": "Remotive",
+    "posted": "2026-06-11T20:31:09",
+    "remote": true,
+    "skills": [
+      "CSS",
+      "excel",
+      "frontend",
+      "git",
+      "html",
+      "illustrator"
+    ],
     "requirements": [],
-    "responsibilities": []
+    "responsibilities": [],
+    "job_type": "full_time"
   },
   {
-    "title": "Software Engineer",
-    "url": "https://in.linkedin.com/jobs/view/software-engineer-at-microsoft-4366861071?position=2&pageNum=0&refId=MhI%2BTMQLhX6xlf%2B8CSq6Nw%3D%3D&trackingId=BUN0EnsIu0G1vzl2IPe5Kw%3D%3D",
-    "company": "Microsoft",
-    "location": "Bengaluru, Karnataka, India",
-    "source": "LinkedIn",
-    "snippet": "",
-    "skills": [],
+    "title": "iOS Developer",
+    "company": "nooro",
+    "location": "Remote (USA)",
+    "url": "https://remotive.com/remote-jobs/software-development/ios-developer-1956455",
+    "snippet": "WHO ARE WE? At nooro, we're revolutionizing pain management for seniors. Our platform is transforming how older adults engage with pain management at home. We're on a mission to make wellness more accessible and effective through technology. Check our website here: https://nooro-us.com/ We're a fast-moving startup that works on quick iteration and bold decisions. Our team is lean, agile, and empow",
+    "salary": "$60k-$130k (depending on experience)",
+    "source": "Remotive",
+    "posted": "2026-06-09T21:15:39",
+    "remote": true,
+    "skills": [
+      "api",
+      "backend",
+      "git",
+      "ios",
+      "security",
+      "swift"
+    ],
     "requirements": [],
-    "responsibilities": []
+    "responsibilities": [],
+    "job_type": "full_time"
   },
   {
-    "title": "Software Engineer (New Grad)",
-    "url": "https://www.linkedin.com/jobs/view/software-engineer-new-grad-at-collective-4414985647?position=3&pageNum=0&refId=MhI%2BTMQLhX6xlf%2B8CSq6Nw%3D%3D&trackingId=b%2BMlTc1lE%2FkCVqqU4WtDUw%3D%3D",
-    "company": "Collective",
-    "location": "San Francisco, CA",
-    "source": "LinkedIn",
-    "snippet": "",
-    "skills": [],
+    "title": "High-Ticket Financial Sales Specialist & Team Lead Track",
+    "company": "FSE LLC",
+    "location": "Remote",
+    "url": "https://remotive.com/remote-jobs/sales/high-ticket-financial-sales-specialist-team-lead-track-2090949",
+    "snippet": "Position: Account Executive / B2B Sales Specialist Compensation: 100% Commission (Uncapped Earning Potential) Location: Remote (Global) About Funding Solutions Experts (FSE) At FSE, we deliver elite capital solutions to high-growth businesses. We operate in a fast-paced, high-stakes environment where excellence is the standard, not the exception. We do not offer a \"comfortable\" corporate safety ne",
+    "salary": "$3k - $10k",
+    "source": "Remotive",
+    "posted": "2026-06-09T08:50:02",
+    "remote": true,
+    "skills": [
+      "C",
+      "excel",
+      "team lead",
+      "financial services",
+      "C-Suite"
+    ],
     "requirements": [],
-    "responsibilities": []
+    "responsibilities": [],
+    "job_type": "full_time"
   },
   {
-    "title": "Junior Software engineer",
-    "url": "https://ca.linkedin.com/jobs/view/junior-software-engineer-at-scotiabank-4426090387?position=4&pageNum=0&refId=MhI%2BTMQLhX6xlf%2B8CSq6Nw%3D%3D&trackingId=t%2Be8wNhM4yv%2FpalOI7n%2BCw%3D%3D",
-    "company": "Scotiabank",
-    "location": "Toronto, Ontario, Canada",
-    "source": "LinkedIn",
-    "snippet": "",
-    "skills": [],
+    "title": "Inside Sales Contractor",
+    "company": "Credit Wellness, LLC",
+    "location": "Remote",
+    "url": "https://remotive.com/remote-jobs/sales/inside-sales-contractor-2086540",
+    "snippet": "About Us We are a financial services start up focusing on helping to improve consumer credit profiles. We are currently seeking KPI driven sales representatives looking to earn up to 45K in their first year while working remotely. We offer comprehensive training and continuous sales coaching to help you meet your financial goals. During our training period we offer a guaranteed training stipend wh",
+    "salary": "OTE $25k - $35k",
+    "source": "Remotive",
+    "posted": "2026-06-08T22:01:12",
+    "remote": true,
+    "skills": [
+      "CRM",
+      "google sheets",
+      "financial services",
+      "Inside Sales"
+    ],
     "requirements": [],
-    "responsibilities": []
+    "responsibilities": [],
+    "job_type": "full_time"
   },
   {
-    "title": "Software Engineer I",
-    "url": "https://www.linkedin.com/jobs/view/software-engineer-i-at-sony-interactive-entertainment-4412034983?position=5&pageNum=0&refId=MhI%2BTMQLhX6xlf%2B8CSq6Nw%3D%3D&trackingId=lFVl0iQevu0WtVs5u%2B%2FR0g%3D%3D",
-    "company": "Sony Interactive Entertainment",
-    "location": "Los Angeles Metropolitan Area",
-    "source": "LinkedIn",
-    "snippet": "",
-    "skills": [],
+    "title": "Online Data Analyst United States Spanish speakers",
+    "company": "TELUS Digital",
+    "location": "Remote (USA)",
+    "url": "https://remotive.com/remote-jobs/all-others/online-data-analyst-united-states-spanish-speakers-2090946",
+    "snippet": "Are you a detail-oriented individual with a passion for research and a good understanding of national and local geography? This freelance opportunity allows you to work at your own pace and from the comfort of your own home. A Day in the Life of an Online Data Analyst: In this role, you will be working on a project aimed at enhancing the content and quality of digital maps that are used by million",
+    "salary": "",
+    "source": "Remotive",
+    "posted": "2026-06-04T21:05:07",
+    "remote": true,
+    "skills": [
+      "go",
+      "social media",
+      "research"
+    ],
     "requirements": [],
-    "responsibilities": []
+    "responsibilities": [],
+    "job_type": "part_time"
+  },
+  {
+    "title": "Freelance Writer",
+    "company": "IAPWE",
+    "location": "Remote",
+    "url": "https://remotive.com/remote-jobs/writing/freelance-writer-1185979",
+    "snippet": "Our organization is seeking content writers to create articles and blog posts on a variety of topics. The rate of pay is $20 per 100 words (this comes out to approximately $100 per article or $50 per hour). Some topics you may be asked to write about include the following (you can always turn down a topic if you do not feel comfortable writing about it, however if you have experience or expertise ",
+    "salary": "$50-$75 /hour",
+    "source": "Remotive",
+    "posted": "2026-06-04T17:00:49",
+    "remote": true,
+    "skills": [
+      "REST"
+    ],
+    "requirements": [],
+    "responsibilities": [],
+    "job_type": "freelance"
+  },
+  {
+    "title": "Head of Sales",
+    "company": "The Land Geek",
+    "location": "Remote",
+    "url": "https://remotive.com/remote-jobs/sales/head-of-sales-2090943",
+    "snippet": "Who We Are At The Land Geek, we\u2019re all about helping people ditch the rat race and build real freedom through land investing. We\u2019re passionate about teaching others how to create passive income using a simple, repeatable system that\u2019s been tested and proven by thousands of land investors. No tenants, no toilets, no termites\u2014just raw, undeveloped land and a whole lot of opportunity. Whether someone",
+    "salary": "$109k - $228k",
+    "source": "Remotive",
+    "posted": "2026-06-03T20:53:10",
+    "remote": true,
+    "skills": [
+      "teaching",
+      "CRM",
+      "analytics",
+      "startup",
+      "R",
+      "hubspot"
+    ],
+    "requirements": [],
+    "responsibilities": [],
+    "job_type": "contract"
+  },
+  {
+    "title": "Copywriter",
+    "company": "Coalition Technologies ",
+    "location": "Remote",
+    "url": "https://remotive.com/remote-jobs/writing/copywriter-1749306",
+    "snippet": "WHO WE'RE LOOKING FOR The ideal copywriter has excellent English writing skills and is excited to write high-quality, SEO-driven content that aligns with detailed, client-specific guidelines. Projects most commonly include writing web pages for eCommerce and lead generation business sites such as category pages, product descriptions, and blog posts. Our clientele is constantly evolving. We produce",
+    "salary": "$20k -$35k",
+    "source": "Remotive",
+    "posted": "2026-06-02T20:15:53",
+    "remote": true,
+    "skills": [
+      "accounting",
+      "excel",
+      "research",
+      "data analysis",
+      "bookkeeping",
+      "google sheets"
+    ],
+    "requirements": [],
+    "responsibilities": [],
+    "job_type": "freelance"
   }
 ]

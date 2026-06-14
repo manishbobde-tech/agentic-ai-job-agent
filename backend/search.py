@@ -4,7 +4,7 @@ from typing import List, Dict
 import json
 from pathlib import Path
 from urllib.parse import quote_plus
-from datetime import datetime, timedelta
+import re
 
 
 class JobSearcher:
@@ -33,8 +33,7 @@ class JobSearcher:
             "Ohio": ["Columbus", "Cleveland", "Cincinnati"],
             "Tennessee": ["Nashville", "Memphis"],
             "Minnesota": ["Minneapolis", "St. Paul"],
-            "Maryland": ["Baltimore", "Bethesda"],
-            "Remote": ["Remote"]
+            "Maryland": ["Baltimore", "Bethesda"]
         }
     
     def search(self, query: str, num_results: int = 20, location: str = "", 
@@ -43,18 +42,23 @@ class JobSearcher:
         
         all_jobs = []
         
-        # Search Remotive (real remote jobs)
-        print("  → Searching Remotive (remote jobs)...")
+        # Search 1: Remotive (remote jobs, many USA)
+        print("  → Searching Remotive...")
         remotive_jobs = self._search_remotive(query)
         all_jobs.extend(remotive_jobs)
         
-        # Search GitHub Jobs alternative - TechCareers
-        print("  → Searching LinkedIn...")
-        linkedin_jobs = self._search_linkedin(query, state, city, remote_only)
-        all_jobs.extend(linkedin_jobs)
+        # Search 2: Arbeitnow (remote jobs)
+        print("  → Searching Arbeitnow...")
+        arbeitnow_jobs = self._search_arbeitnow(query)
+        all_jobs.extend(arbeitnow_jobs)
         
-        # Search Google for USA jobs
-        print("  → Searching Google Jobs...")
+        # Search 3: Findwork (tech jobs)
+        print("  → Searching Findwork...")
+        findwork_jobs = self._search_findwork(query)
+        all_jobs.extend(findwork_jobs)
+        
+        # Search 4: Google for USA job boards
+        print("  → Searching Google...")
         google_jobs = self._search_google_usa(query, state, city)
         all_jobs.extend(google_jobs)
         
@@ -67,18 +71,21 @@ class JobSearcher:
                 seen.add(title_key)
                 unique_jobs.append(job)
         
-        # Sort by relevance
+        # Filter by state/city if specified
+        if state or city:
+            unique_jobs = self._filter_by_location(unique_jobs, state, city)
+        
         result = unique_jobs[:num_results]
         
-        # Cache results
+        # Cache
         with open("cached_jobs.json", "w") as f:
             json.dump(result, f, indent=2, default=str)
         
-        print(f"Found {len(result)} unique jobs")
+        print(f"  → Found {len(result)} jobs")
         return result
     
     def _search_remotive(self, query: str) -> List[Dict]:
-        """Search Remotive API - Free, real remote jobs"""
+        """Search Remotive API - Free, remote tech jobs"""
         jobs = []
         try:
             response = requests.get(
@@ -91,86 +98,116 @@ class JobSearcher:
             if response.status_code == 200:
                 data = response.json()
                 for job in data.get("jobs", [])[:15]:
-                    jobs.append({
-                        "title": job.get("title", ""),
-                        "company": job.get("company_name", ""),
-                        "location": job.get("candidate_required_location", "Worldwide"),
-                        "url": job.get("url", ""),
-                        "snippet": self._clean_html(job.get("description", ""))[:400],
-                        "salary": job.get("salary", "Not specified"),
-                        "source": "Remotive",
-                        "posted": job.get("publication_date", ""),
-                        "remote": True,
-                        "skills": job.get("tags", [])[:6],
-                        "requirements": [],
-                        "responsibilities": [],
-                        "job_type": job.get("job_type", "")
-                    })
+                    location = job.get("candidate_required_location", "")
+                    if location in ["Worldwide", "USA", "United States", ""]:
+                        jobs.append({
+                            "title": job.get("title", ""),
+                            "company": job.get("company_name", ""),
+                            "location": "Remote (USA)" if location in ["USA", "United States"] else "Remote",
+                            "url": job.get("url", ""),
+                            "snippet": self._clean_html(job.get("description", ""))[:400],
+                            "salary": job.get("salary", "Not specified"),
+                            "source": "Remotive",
+                            "posted": job.get("publication_date", ""),
+                            "remote": True,
+                            "skills": job.get("tags", [])[:6],
+                            "requirements": [],
+                            "responsibilities": [],
+                            "job_type": job.get("job_type", "")
+                        })
         except Exception as e:
-            print(f"Remotive error: {e}")
+            print(f"  Remotive error: {e}")
         return jobs
     
-    def _search_linkedin(self, query: str, state: str = "", city: str = "", remote_only: bool = False) -> List[Dict]:
-        """Search LinkedIn"""
+    def _search_arbeitnow(self, query: str) -> List[Dict]:
+        """Search Arbeitnow API - Free, remote jobs"""
         jobs = []
         try:
-            location = f"{city}, {state}" if city else state
-            if not location:
-                location = "United States"
+            response = requests.get(
+                "https://www.arbeitnow.com/api/job-board-api",
+                params={"remote": "true"},
+                headers=self.headers,
+                timeout=15
+            )
             
-            params = {"keywords": quote_plus(query), "location": quote_plus(location)}
-            if remote_only:
-                params["f_WT"] = "2"
+            if response.status_code == 200:
+                data = response.json()
+                for job in data.get("data", [])[:10]:
+                    # Filter for USA-ish jobs
+                    location = job.get("location", "")
+                    if self._is_usa_location(location) or "remote" in location.lower():
+                        jobs.append({
+                            "title": job.get("title", ""),
+                            "company": job.get("company_name", ""),
+                            "location": location or "Remote",
+                            "url": job.get("url", ""),
+                            "snippet": self._clean_html(job.get("description", ""))[:400],
+                            "salary": "",
+                            "source": "Arbeitnow",
+                            "posted": job.get("created_at", ""),
+                            "remote": job.get("remote", False),
+                            "skills": job.get("tags", [])[:6],
+                            "requirements": [],
+                            "responsibilities": [],
+                            "job_type": ""
+                        })
+        except Exception as e:
+            print(f"  Arbeitnow error: {e}")
+        return jobs
+    
+    def _search_findwork(self, query: str) -> List[Dict]:
+        """Search Findwork API - Free tech jobs"""
+        jobs = []
+        try:
+            response = requests.get(
+                "https://findwork.dev/api/jobs/",
+                params={"search": query, "remote": "true"},
+                headers={**self.headers, "Content-Type": "application/json"},
+                timeout=15
+            )
             
-            url = f"https://www.linkedin.com/jobs/search/?{'&'.join(f'{k}={v}' for k, v in params.items())}"
-            
-            response = requests.get(url, headers={
-                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
-                "Accept": "text/html",
-            }, timeout=10)
-            
-            soup = BeautifulSoup(response.text, "html.parser")
-            
-            for card in soup.select("div.base-card")[:15]:
-                title_elem = card.select_one("h3.base-search-card__title")
-                company_elem = card.select_one("h4.base-search-card__subtitle")
-                link_elem = card.select_one("a.base-card__full-link")
-                location_elem = card.select_one("span.job-search-card__location")
-                
-                if title_elem:
-                    job_location = location_elem.text.strip() if location_elem else ""
+            if response.status_code == 200:
+                data = response.json()
+                for job in data.get("results", [])[:10]:
                     jobs.append({
-                        "title": title_elem.text.strip(),
-                        "url": link_elem["href"] if link_elem else "",
-                        "company": company_elem.text.strip() if company_elem else "Unknown",
-                        "location": job_location,
-                        "source": "LinkedIn",
-                        "snippet": "",
+                        "title": job.get("role", ""),
+                        "company": job.get("company_name", ""),
+                        "location": job.get("location", "") or "Remote",
+                        "url": job.get("url", ""),
+                        "snippet": job.get("text", "")[:400],
                         "salary": "",
-                        "posted": "",
-                        "remote": "remote" in job_location.lower() or "remote" in title_elem.text.lower(),
-                        "skills": [],
+                        "source": "Findwork",
+                        "posted": job.get("date_posted", ""),
+                        "remote": True,
+                        "skills": job.get("employment_type", []),
                         "requirements": [],
                         "responsibilities": [],
-                        "job_type": ""
+                        "job_type": job.get("employment_type", "")
                     })
         except Exception as e:
-            print(f"LinkedIn error: {e}")
+            print(f"  Findwork error: {e}")
         return jobs
     
     def _search_google_usa(self, query: str, state: str = "", city: str = "") -> List[Dict]:
         """Search Google for USA jobs"""
         jobs = []
         try:
-            location = f"{city}, {state} USA" if city else f"{state} USA" if state else "USA"
-            search_query = f"{query} jobs {location}"
+            if city and state:
+                location = f"{city}, {state}"
+            elif state:
+                location = state
+            else:
+                location = "United States"
+            
+            search_query = f"{query} jobs hiring {location} -site:linkedin.com"
             
             response = requests.get(
                 "https://www.google.com/search",
-                params={"q": search_query, "num": 12},
+                params={"q": search_query, "num": 12, "gl": "us", "hl": "en"},
                 headers={
                     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
                     "Accept": "text/html",
+                    "Accept-Language": "en-US,en;q=0.9",
                 },
                 timeout=10
             )
@@ -186,37 +223,84 @@ class JobSearcher:
                     if "/url?q=" in url:
                         url = url.split("/url?q=")[1].split("&")[0]
                     
+                    if "linkedin.com" in url.lower():
+                        continue
+                    
                     snippet = snippet_elem.text if snippet_elem else ""
                     
-                    jobs.append({
-                        "title": title_elem.text,
-                        "url": url,
-                        "snippet": snippet,
-                        "source": self._detect_source(url),
-                        "company": self._extract_company(title_elem.text, snippet),
-                        "location": city or state or "USA",
-                        "skills": self._extract_skills(snippet),
-                        "requirements": [],
-                        "responsibilities": [],
-                        "remote": "remote" in snippet.lower(),
-                        "salary": self._extract_salary(snippet),
-                        "posted": "",
-                        "job_type": ""
-                    })
+                    if self._snippet_mentions_usa(snippet, state, city):
+                        jobs.append({
+                            "title": title_elem.text,
+                            "url": url,
+                            "snippet": snippet,
+                            "source": self._detect_source(url),
+                            "company": self._extract_company(title_elem.text, snippet),
+                            "location": f"{city}, {state}" if city else state or "USA",
+                            "skills": self._extract_skills(snippet),
+                            "requirements": [],
+                            "responsibilities": [],
+                            "remote": "remote" in snippet.lower(),
+                            "salary": self._extract_salary(snippet),
+                            "posted": "",
+                            "job_type": ""
+                        })
         except Exception as e:
-            print(f"Google error: {e}")
+            print(f"  Google error: {e}")
         return jobs
     
+    def _is_usa_location(self, location: str) -> bool:
+        if not location:
+            return False
+        location_lower = location.lower()
+        usa_keywords = [
+            "usa", "united states", "america", "remote",
+            "california", "new york", "texas", "washington", "massachusetts",
+            "colorado", "illinois", "georgia", "florida", "north carolina",
+            "virginia", "oregon", "arizona", "michigan", "pennsylvania",
+            "ohio", "tennessee", "minnesota", "maryland",
+            "san francisco", "los angeles", "seattle", "boston", "chicago",
+            "austin", "denver", "atlanta", "miami", "dallas", "houston",
+            "phoenix", "portland", "san diego", "nashville", "raleigh"
+        ]
+        for keyword in usa_keywords:
+            if keyword in location_lower:
+                return True
+        if re.search(r',\s*[A-Z]{2}\b', location):
+            return True
+        return False
+    
+    def _snippet_mentions_usa(self, snippet: str, state: str = "", city: str = "") -> bool:
+        snippet_lower = snippet.lower()
+        if not state and not city:
+            return any(kw in snippet_lower for kw in ["usa", "united states", "remote", "hiring"])
+        if state and state.lower() in snippet_lower:
+            return True
+        if city and city.lower() in snippet_lower:
+            return True
+        return False
+    
+    def _filter_by_location(self, jobs: List[Dict], state: str = "", city: str = "") -> List[Dict]:
+        if not state and not city:
+            return jobs
+        filtered = []
+        for job in jobs:
+            location = job.get("location", "").lower()
+            if job.get("remote", False):
+                filtered.append(job)
+                continue
+            if state and state.lower() in location:
+                filtered.append(job)
+            elif city and city.lower() in location:
+                filtered.append(job)
+        return filtered
+    
     def _clean_html(self, html: str) -> str:
-        """Remove HTML tags from text"""
         soup = BeautifulSoup(html, "html.parser")
         return soup.get_text(separator=" ", strip=True)
     
     def _detect_source(self, url: str) -> str:
         url_lower = url.lower()
-        if "linkedin.com" in url_lower:
-            return "LinkedIn"
-        elif "indeed.com" in url_lower:
+        if "indeed.com" in url_lower:
             return "Indeed"
         elif "glassdoor" in url_lower:
             return "Glassdoor"
@@ -248,7 +332,6 @@ class JobSearcher:
         return found[:6]
     
     def _extract_salary(self, text: str) -> str:
-        import re
         patterns = [
             r'\$[\d,]+(?:k|K)?(?:\s*-\s*\$[\d,]+(?:k|K)?)?',
             r'[\d,]+(?:k|K)?\s*(?:USD|per year|annual)',
