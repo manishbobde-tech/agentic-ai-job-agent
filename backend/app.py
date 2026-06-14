@@ -26,7 +26,11 @@ matcher = ResumeMatcher()
 
 class SearchRequest(BaseModel):
     query: str = "Agentic AI Engineer"
-    location: str = "Remote"
+    location: str = ""
+    country: str = "USA"
+    state: str = ""
+    city: str = ""
+    remote_only: bool = False
     num_results: int = 20
 
 class ResumeMatchRequest(BaseModel):
@@ -44,10 +48,22 @@ class TailorResumeRequest(BaseModel):
 def root():
     return {"message": "Agentic AI Job Search API"}
 
+@app.get("/api/locations")
+def get_locations():
+    return searcher.get_usa_locations()
+
 @app.post("/api/search")
 def search_jobs(request: SearchRequest):
     try:
-        jobs = searcher.search(request.query, request.num_results)
+        jobs = searcher.search(
+            query=request.query,
+            num_results=request.num_results,
+            location=request.location,
+            country=request.country,
+            state=request.state,
+            city=request.city,
+            remote_only=request.remote_only
+        )
         return {"jobs": jobs, "total": len(jobs)}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
