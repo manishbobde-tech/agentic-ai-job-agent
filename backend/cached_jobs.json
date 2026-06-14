@@ -1,8 +1,19 @@
 [
   {
-    "title": "Software Engineer, AI/ML",
-    "url": "https://in.linkedin.com/jobs/view/software-engineer-ai-ml-at-google-4390913792?position=1&pageNum=0&refId=0sjTp90Qo7OrC8kBmEZj0A%3D%3D&trackingId=547wqWCS0abSvx%2FokniuWA%3D%3D",
-    "company": "Google",
+    "title": "Software Engineer (New Grads)",
+    "url": "https://www.linkedin.com/jobs/view/software-engineer-new-grads-at-giga-4374834620?position=1&pageNum=0&refId=MhI%2BTMQLhX6xlf%2B8CSq6Nw%3D%3D&trackingId=0ixC5mGq1lyOhAEHBiZBmw%3D%3D",
+    "company": "Giga",
+    "location": "New York, NY",
+    "source": "LinkedIn",
+    "snippet": "",
+    "skills": [],
+    "requirements": [],
+    "responsibilities": []
+  },
+  {
+    "title": "Software Engineer",
+    "url": "https://in.linkedin.com/jobs/view/software-engineer-at-microsoft-4366861071?position=2&pageNum=0&refId=MhI%2BTMQLhX6xlf%2B8CSq6Nw%3D%3D&trackingId=BUN0EnsIu0G1vzl2IPe5Kw%3D%3D",
+    "company": "Microsoft",
     "location": "Bengaluru, Karnataka, India",
     "source": "LinkedIn",
     "snippet": "",
@@ -11,10 +22,10 @@
     "responsibilities": []
   },
   {
-    "title": "AI / ML Developer",
-    "url": "https://www.linkedin.com/jobs/view/ai-ml-developer-at-hyertek-4426522107?position=2&pageNum=0&refId=0sjTp90Qo7OrC8kBmEZj0A%3D%3D&trackingId=s5UbIB3v181UiKjYSAc5mg%3D%3D",
-    "company": "HyerTek",
-    "location": "Rockville, MD",
+    "title": "Software Engineer (New Grad)",
+    "url": "https://www.linkedin.com/jobs/view/software-engineer-new-grad-at-collective-4414985647?position=3&pageNum=0&refId=MhI%2BTMQLhX6xlf%2B8CSq6Nw%3D%3D&trackingId=b%2BMlTc1lE%2FkCVqqU4WtDUw%3D%3D",
+    "company": "Collective",
+    "location": "San Francisco, CA",
     "source": "LinkedIn",
     "snippet": "",
     "skills": [],
@@ -22,10 +33,10 @@
     "responsibilities": []
   },
   {
-    "title": "Associate Engineer - AI/ML with Python",
-    "url": "https://in.linkedin.com/jobs/view/associate-engineer-ai-ml-with-python-at-harman-india-4412930013?position=3&pageNum=0&refId=0sjTp90Qo7OrC8kBmEZj0A%3D%3D&trackingId=boVu9JU8yj2o7q19sj9NmA%3D%3D",
-    "company": "HARMAN India",
-    "location": "Bengaluru, Karnataka, India",
+    "title": "Junior Software engineer",
+    "url": "https://ca.linkedin.com/jobs/view/junior-software-engineer-at-scotiabank-4426090387?position=4&pageNum=0&refId=MhI%2BTMQLhX6xlf%2B8CSq6Nw%3D%3D&trackingId=t%2Be8wNhM4yv%2FpalOI7n%2BCw%3D%3D",
+    "company": "Scotiabank",
+    "location": "Toronto, Ontario, Canada",
     "source": "LinkedIn",
     "snippet": "",
     "skills": [],
@@ -33,21 +44,10 @@
     "responsibilities": []
   },
   {
-    "title": "AI/ML Engineer",
-    "url": "https://in.linkedin.com/jobs/view/ai-ml-engineer-at-infosys-4402197130?position=4&pageNum=0&refId=0sjTp90Qo7OrC8kBmEZj0A%3D%3D&trackingId=paQ%2BFaNsHFPZMbztvP%2BPOQ%3D%3D",
-    "company": "Infosys",
-    "location": "Bengaluru East, Karnataka, India",
-    "source": "LinkedIn",
-    "snippet": "",
-    "skills": [],
-    "requirements": [],
-    "responsibilities": []
-  },
-  {
-    "title": "Python AI Developers",
-    "url": "https://in.linkedin.com/jobs/view/python-ai-developers-at-infosys-4427217079?position=5&pageNum=0&refId=0sjTp90Qo7OrC8kBmEZj0A%3D%3D&trackingId=%2Fj4Ic0QJmx5%2FgsGr7lKRrw%3D%3D",
-    "company": "Infosys",
-    "location": "Bengaluru East, Karnataka, India",
+    "title": "Software Engineer I",
+    "url": "https://www.linkedin.com/jobs/view/software-engineer-i-at-sony-interactive-entertainment-4412034983?position=5&pageNum=0&refId=MhI%2BTMQLhX6xlf%2B8CSq6Nw%3D%3D&trackingId=lFVl0iQevu0WtVs5u%2B%2FR0g%3D%3D",
+    "company": "Sony Interactive Entertainment",
+    "location": "Los Angeles Metropolitan Area",
     "source": "LinkedIn",
     "snippet": "",
     "skills": [],
